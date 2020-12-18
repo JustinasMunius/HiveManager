@@ -7,7 +7,7 @@ const path = __dirname + '/app/views/';
 const app = express();
 
 app.use(express.static(path));
-app.use(cors(corsOptions));
+app.use(cors());
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
@@ -25,7 +25,7 @@ const db = require("./app/models");
 const dbConfig = require("./app/config/db.config");
 const Role = db.role;
 
-console.log(process.env.DB_CONNECTION);
+//console.log(process.env.DB_CONNECTION);
 db.mongoose
 // .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
   .connect(process.env.DB_CONNECTION, {
@@ -40,9 +40,9 @@ db.mongoose
     console.log("Cannot connect to the database!", err);
     process.exit();
   });
-var corsOptions = {
-  origin: "http://localhost:8081"
-};
+// var corsOptions = {
+//   origin: "http://localhost:8081"
+// };
 
 // routes
 require("./app/routes/turorial.routes")(app);
