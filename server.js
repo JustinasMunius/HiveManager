@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+require('dotenv/config');
 
 const path = __dirname + '/app/views/';
 const app = express();
@@ -24,8 +25,10 @@ const db = require("./app/models");
 const dbConfig = require("./app/config/db.config");
 const Role = db.role;
 
+console.log(process.env.DB_CONNECTION);
 db.mongoose
-  .connect(`mongodb+srv://${dbConfig.USER}:${dbConfig.PSWD}@cluster0.jygck.azure.mongodb.net/${dbConfig.DB}?retryWrites=true&w=majority`, {
+// .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
+  .connect(process.env.DB_CONNECTION, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
